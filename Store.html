@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="">
+<head>
+    <title>Online Store</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<h1>Sklep z Zabawkami</h1>
+<h1>Produkty:</h1>
+<div id="products"></div>
+
+<!-- logowaniw dla admina -->
+<button id="admin-login-btn" style="position: fixed; right: 20px; top: 20px;">Admin Login</button>
+
+<!-- model logowania -->
+<div id="login-modal" style="display:none; position: fixed; right: 20px; top: 60px; background: white; padding: 20px; border-radius: 5px; box-shadow: 0 0 10px rgba(0,0,0,0.5);">
+    <h2>Login</h2>
+    <input type="text" id="login" placeholder="Login">
+    <input type="password" id="password" placeholder="Password">
+    <button onclick="login()">Login</button>
+</div>
+
+<script>
+    async function fetchProducts() {
+        try {
+            const response = await fetch('http://127.0.0.1:5000/products');
+            if (!response.ok) {
+                throw new Error(`HTTP error!: ${response.status}`);
+            }
+            const products = await response.json();
+
+            const productsContainer = document.getElementById('products');
+            productsContainer.innerHTML = '';
+            products.forEach(product => {
+                const productDiv = document.createElement('div');
+                productDiv.className = 'product-item';
+                productDiv.innerHTML = `
+                    <img src="http://localhost:5000/uploads/${product.image_filename}" alt="${product.name}">
+                    <h3>${product.name}</h3>
+                    <p class="price">${product.price} zl</p>
+                    <p>${product.description}</p>
+                `;
+                productsContainer.appendChild(productDiv);
+            });
+        } catch (error) {
+            console.error('Problem z zaladowaniem porduktow:', error);
+        }
+    }
+
+    document.getElementById('admin-login-btn').addEventListener('click', () => {
+        document.getElementById('login-modal').style.display = 'block';
+    });
+
+    function login() {
+        const login = document.getElementById('login').value;
+        const password = document.getElementById('password').value;
+
+        if (login === 'admin' && password === 'admin') {
+            window.location.href = 'admin.html';
+        } else {
+            alert('Nieprawidłowy login lub hasło');
+        }
+    }
+
+    fetchProducts();
+</script>
+
+</body>
+</html>

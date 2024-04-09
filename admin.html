@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Panel</title>
+  <link rel="stylesheet" href="admin.css"> <!-- Link do css -->
+</head>
+<body>
+<h1>Admin Panel</h1>
+<div id="product-form">
+  <h2>Add Product</h2>
+  <input type="text" id="name" placeholder="Product Name">
+  <input type="number" id="price" placeholder="Price">
+  <textarea id="description" placeholder="Description"></textarea>
+  <input type="file" id="image" accept="image/*">
+  <button onclick="addProduct()">Add Product</button>
+</div>
+
+<div id="edit-form" style="display: none;">
+  <h2>Edit Product</h2>
+  <input type="hidden" id="edit-id">
+  <input type="text" id="edit-name" placeholder="Product Name">
+  <input type="number" id="edit-price" placeholder="Price">
+  <textarea id="edit-description" placeholder="Description"></textarea>
+  <input type="file" id="edit-image" accept="image/*">
+  <button onclick="submitEdit()">Save Changes</button>
+  <button onclick="cancelEdit()">Cancel</button>
+</div>
+
+<div id="products-list">
+  <h2>Products</h2>
+  <!-- Lista produktów wypelnienie -->
+</div>
+
+<script src="admin.js"></script> <!-- Link do javascript -->
+</body>
+</html>
